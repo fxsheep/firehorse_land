@@ -1,12 +1,12 @@
 # firehorse_land
 This is a fun project utilizing "peek and poke" function in Redmi 3S's EDL programmer,
-which leads to [arbitary code execution](https://alephsecurity.com/2018/01/22/qualcomm-edl-1/) in highest privige level of its Application Processor.
+which leads to [arbitary code execution](https://alephsecurity.com/2018/01/22/qualcomm-edl-1/) in highest privilege level of its Application Processor.
 
 The ultimate goal of this project is to (re)load the rest of the boot chain from the LK, bypassing Secure Boot,
 and use backup partitons (*bak) on the EMMC to store tampered firmwares and boot them in EDL while keeping the stock firmware,
 making it a Semi-Tethered jailbreak.
 
-# #Current status:
+## Current status:
 Supports booting from EDL to a custom LK(little kernel, aboot),[source](https://github.com/fxsheep/lk4edl).
 Nothing much is working at this point, as RPM firmware isn't loaded(yet).
 ### Working:
