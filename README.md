@@ -25,6 +25,10 @@ Vibrator, Display, etc.
 8. You'll see the 9008 serial port disappears and a Fastboot device shows up.
 9. Use fastboot oem lk_log to see LK boot messages.
 
+## Update 20/03/21
+After days of investigation, I found that loading RPM fw separately seems to be a dead end, since SBL1 is only responsible of loading and authenticating RPM fw , but actual clock setup and reset to the RPM processor is done by QSEE (trustzone), whose source even OEMs can't get hold of.Therefore it isn't likely possible to implement it by ourselves since this is fully undocumented, and there's probably an interdependency between TZ/RPM.
+So the next way could be booting SBL1 from our LK.This isn't easy either as we don't have the PBL source(obviously) and don't know the exact requirements SBL1 demands, especially the SBL1 parameters passed from PBL.But another fun fact is that EDL programmer still exists in memory and therefore we can try executing it again (EDL-LK-EDL) for testing :P ,as EDL won't crash even if mmc failed to initialize.
+
 ## Notes
 Based on the research done by alephsecurity,it's not difficult to control the PC with poke function,by changing the LR
 in the stack, in our case @0x8057ee4. 
