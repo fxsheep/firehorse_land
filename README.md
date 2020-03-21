@@ -45,6 +45,23 @@ so that loading it with poke won't take too much time.
 
 As for the custom LK,since it's running in pure AArch32 and there is no other stuffs like Secure Monitor etc, SMC will fail.
 Commenting related codes out, and it should go far enough to fastboot mode. 
+## Update 20/03/21 #3
+This time I attempted to jump from LK back to EDL, using the same way as the assembly.Also keep the MMU untouched in LK in order to prevent messing up the original tables.It actually worked, but due to the fact that the 9008 serial port role is set by the PBL and EDL programmer doesn't take care of it, we can just see fastboot gadget remains, as if it has crashed.When I re-plugged in the phone, however, 900E shows up.That was expected in EDL mode since EDL programmer doesn't (can't?) initialize the USB.  But later I attepmted to run fastboot commands after booting EDL from LK:
+
+
+H:\下载\firehorse-master\host>fastboot.exe oem boot-edl  
+                                                   (bootloader) Booting to EDL from LK...  
+^C  
+H:\下载\firehorse-master\host>fastboot.exe oem boot-edl  
+                                                   FAILED (Device sent unknown status code: <?xml version="1.0" encoding="UTF-8" ?><data><log value="XML (0 )  
+fastboot: error: Command failed  
+  
+H:\下载\firehorse-master\host>fastboot.exe oem boot-edl  
+                                                   FAILED (Write to device failed (Unknown error))  
+fastboot: error: Command failed  
+
+
+An XML reply after all!So this proved that EDL is actually running again.Now at this point we've got a verified-working convenient environment (LK) for us to do more things, e.g. loading ELF binaries, isntead of diving in the dark.
 
 ## Update 20/03/21 #2
 I tried to re-execute EDL programmer from itself, using the existing pbl2sbl parameter:
