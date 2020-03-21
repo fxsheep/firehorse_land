@@ -25,10 +25,6 @@ Vibrator, Display, etc.
 8. You'll see the 9008 serial port disappears and a Fastboot device shows up.
 9. Use fastboot oem lk_log to see LK boot messages.
 
-## Update 20/03/21
-After days of investigation, I found that loading RPM fw separately seems to be a dead end, since SBL1 is only responsible of loading and authenticating RPM fw , but actual clock setup and reset to the RPM processor is done by QSEE (trustzone), whose source even OEMs can't get hold of.Therefore it isn't likely possible to implement it by ourselves since this is fully undocumented, and there's probably an interdependency between TZ/RPM.
-So the next way could be booting SBL1 from our LK.This isn't easy either as we don't have the PBL source(obviously) and don't know the exact requirements SBL1 demands, especially the SBL1 parameters passed from PBL.But another fun fact is that EDL programmer still exists in memory and therefore we can try executing it again (EDL-LK-EDL) for testing :P ,as EDL won't crash even if mmc failed to initialize.
-
 ## Notes
 Based on the research done by alephsecurity,it's not difficult to control the PC with poke function,by changing the LR
 in the stack, in our case @0x8057ee4. 
@@ -49,3 +45,22 @@ so that loading it with poke won't take too much time.
 
 As for the custom LK,since it's running in pure AArch32 and there is no other stuffs like Secure Monitor etc, SMC will fail.
 Commenting related codes out, and it should go far enough to fastboot mode. 
+
+## Update 20/03/21 #2
+I tried to re-execute EDL programmer from itself, using the existing pbl2sbl parameter:
+>	MOV R0, #0xFFFFFFFF 
+>
+>	MCR p15,0,R0,c3,c0,0	//Set DACR to 0xFFFFFFFF 
+>
+>	LDR R0, =0x08003100	//Load existing pbl2sbl as the parameter
+>
+>	LDR PC, =0x08008B30	//Jump to current EDL's entrypoint 
+
+It "worked", no crashing, not even re-enuming the USB interface.But I'm pretty sure it got executed, as DACR value set by the assembly 
+was overwritten. When I tried to read partition from the mmc using firehose then, however, it was stuck and spinning forever(probably).
+This means I have the same problem as ugglite, one of alephsecurity's example in their research that "failed to initialize the MMC".
+This might be either because the pbl2sbl data isn't correct(should be different each time), or because MMC initialized by the former instance of the EDL programmer isn't uninitialized.
+
+## Update 20/03/21
+After days of investigation, I found that loading RPM fw separately seems to be a dead end, since SBL1 is only responsible of loading and authenticating RPM fw , but actual clock setup and reset to the RPM processor is done by QSEE (trustzone), whose source even OEMs can't get hold of.Therefore it isn't likely possible to implement it by ourselves since this is fully undocumented, and there's probably an interdependency between TZ/RPM.
+So the next way could be booting SBL1 from our LK.This isn't easy either as we don't have the PBL source(obviously) and don't know the exact requirements SBL1 demands, especially the SBL1 parameters passed from PBL.But another fun fact is that EDL programmer still exists in memory and therefore we can try executing it again (EDL-LK-EDL) for testing :P ,as EDL won't crash even if mmc failed to initialize.
