@@ -47,7 +47,8 @@ As for the custom LK,since it's running in pure AArch32 and there is no other st
 Commenting related codes out, and it should go far enough to fastboot mode. 
 
 ## Update 20/03/22 #2
-~~Now I tried to actually boot the loaded SBL1 with the original parameters from PBL.At first I didn't uninit the MMC in LK, and it just spinned forever.Then I uninitialized the MMC right before jumping, and this time a got a reboot.(It's really a reboot, as I verified  the result, with actual SBL1 wiped. )~~How silly I am... I forgot to remove the reboot code.Actually uninit the MMC got the same result.
+~~Now I tried to actually boot the loaded SBL1 with the original parameters from PBL.At first I didn't uninit the MMC in LK, and it just spinned forever.Then I uninitialized the MMC right before jumping, and this time a got a reboot.(It's really a reboot, as I verified  the result, with actual SBL1 wiped. )~~  
+How silly I am... I forgot to remove the reboot code.Actually uninit the MMC got the same result.
 
 ## Update 20/03/22
 Added an ELF loader found in originial little kernel project, SBL1 can be loaded properly now.  
