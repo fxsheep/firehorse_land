@@ -45,6 +45,10 @@ so that loading it with poke won't take too much time.
 
 As for the custom LK,since it's running in pure AArch32 and there is no other stuffs like Secure Monitor etc, SMC will fail.
 Commenting related codes out, and it should go far enough to fastboot mode. 
+
+## Update 20/03/22
+Added an ELF loader found in originial little kernel project, SBL1 can be loaded properly now.  
+
 ## Update 20/03/21 #3
 This time I attempted to jump from LK back to EDL, using the same way as the assembly.Also keep the MMU untouched in LK in order to prevent messing up the original tables.It actually worked, but due to the fact that the 9008 serial port role is set by the PBL and EDL programmer doesn't take care of it, we can just see fastboot gadget remains, as if it has crashed.When I re-plugged in the phone, however, 900E shows up.That was expected in EDL mode since EDL programmer doesn't (can't?) initialize the USB.  But later I attepmted to run fastboot commands after booting EDL from LK:
 
