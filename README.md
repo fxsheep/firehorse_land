@@ -46,6 +46,10 @@ so that loading it with poke won't take too much time.
 As for the custom LK,since it's running in pure AArch32 and there is no other stuffs like Secure Monitor etc, SMC will fail.
 Commenting related codes out, and it should go far enough to fastboot mode. 
 
+## Update 20/03/25
+Still haven't figured out booting SBL1 in LK... I don't seem to handle the loading properly.Tried to load the programmer in this way,  stucks as well.   
+Since loading on my own doesn't work, and basing on the fact that SBL1 and the programmer are basically the same thing just with some ifdefs at compile time to disable some functions, is it possible to re-use the programmer which still stays in memory? This seems to be a good idea. So I tried to patch the noreturn funtion that enters the programmer's main loop with a return (BX LR), then executing results in a reboot. Expected? The SBL1 as well as the programmer requires a parameter passed from PBL.I always pass the original parameter pointer to the programmer.When I cleared it and execute the programmer (not returning), phone reboots as well. Why not try to boot SBL1 directly with PBL's EDL mode? So I tried , result: reboot. Things are now becoming clearer: It either proves that the reboot is caused by wrong PBL params, or PBL in EDL mode doesn't accept SBL1 image and performed a reboot.The latter is very unlikely, as PBL usually causes an infinite loop instead of triggering a reboot when a fault in secureboot verification.(Btw, the image type of a qualcomm firmware ELF is stored in the signature, and secboot verifies a lot , including the image type.  )
+
 ## Update 20/03/23
 Another mistake is found in my sbl1 booting routine.When LK jumps to SBL1 entry, it's not actually a jump, but a call, as it's written in C.What's wors it uses BLX, which not only jumps but also switches the bitness. The function calling SBL1 is in arm, thus BLX will switch to thumb mode.However SBL1 entry also has arm code, so this will definitely not work. Now I'm using "LDR PC, =ADDR" as a workaround.
 
