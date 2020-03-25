@@ -46,6 +46,10 @@ so that loading it with poke won't take too much time.
 As for the custom LK,since it's running in pure AArch32 and there is no other stuffs like Secure Monitor etc, SMC will fail.
 Commenting related codes out, and it should go far enough to fastboot mode. 
 
+## Update 20/03/25 #3
+Okay...after finding out why programmer reboots (in our previous case), I did a workaround in my LK.Then it doesn't reboot anymore, but then stuck as well :( What's worse, it seems to broke PMIC configs so there's something wrong there and my phone can't poweroff anymore! I've had similar issues when porting LK, but I haven't found the root cause and solution.The only way to exit this state is completely by chance, or drain the battery to let it reach cut off voltage, kek.
+However, another idea came up to my mind, why not use Alpehsecurity's way, re-run the bootrom ? At first I didn't choose it because I tried to branch to 0x100000 but result in a stuck (the MMC issue).But since I already had a working LK, I can probably uninitialize the MMC properly to a ready state for bootrom.So I had a try.First, I tried to jump to 0x100000 directly from LK. The phone stuck, which is expected as bootrom failed to init MMC.Then I called target_uninit() and platform_uninit() before branching to 0x100000.Then it worked! Phone warm-booted successfully up to stock LK, although it seems stuck at there.Nevermind, as the bootrom is the same, now I can just reuse alpehsecurity's work, but in my LK, of course.
+
 ## Update 20/03/25 #2
 This time I loaded tz, rpm, and other firmware ELFs with a valid root key hash (but with very wrong image types) in PBL. It either dies or throws errors, no reboot occured.
 
