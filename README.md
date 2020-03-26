@@ -46,6 +46,13 @@ so that loading it with poke won't take too much time.
 As for the custom LK,since it's running in pure AArch32 and there is no other stuffs like Secure Monitor etc, SMC will fail.
 Commenting related codes out, and it should go far enough to fastboot mode. 
 
+## Update 20/03/26 #2
+Today is a great day.After a lot of attempts, now I'm finally able to do:  
+1.Booting from EDL mode to custom LK.  
+2.PBL tethered patching.  
+This [commit](https://github.com/fxsheep/lk4edl/commit/63881042c9a2ed53b47c704b13baf9a3a9587007) includes a sample patch that modifies the sbl1 partition GUID the PBL looks for.After patching it and booting the patched PBL, it immediately enters 9008 mode, as the corresponding sbl1 partition is not found.This is a significant step to my final goal, as I can do whatever I want to the PBL clone (tethered).It's time to RE the PBL and find out secureboot verify stuffs to patch.   
+Just one more weirdness is that the PBL patch to set DACR will stuck the device.This patch exists even in alephsecurity's most successful example, nokia 6's demo.Currently I just left that out.It's not required anyway, as I'm not implementing a runtime debugger like alephsecurity.
+
 ## Update 20/03/26  
 I borrowed MMU page remap codes from firehorse framework, remapping individual pages now works.Time to get PBL patched.My first goal is to make my patched PBL boot from sbl1bak instead of sbl1 partition.This is quite easy to patch as I don't need to mess with reverse-engineering much.Qualcomm identify firmware partitions all by GUID in their known implementions, I think it applies to PBL as well.As expected, I found this in PBL:
 
