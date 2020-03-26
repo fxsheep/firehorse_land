@@ -46,6 +46,23 @@ so that loading it with poke won't take too much time.
 As for the custom LK,since it's running in pure AArch32 and there is no other stuffs like Secure Monitor etc, SMC will fail.
 Commenting related codes out, and it should go far enough to fastboot mode. 
 
+## Update 20/03/26  
+I borrowed MMU page remap codes from firehorse framework, remapping individual pages now works.Time to get PBL patched.My first goal is to make my patched PBL boot from sbl1bak instead of sbl1 partition.This is quite easy to patch as I don't need to mess with reverse-engineering much.Qualcomm identify firmware partitions all by GUID in their known implementions, I think it applies to PBL as well.As expected, I found this in PBL:
+
+> ROM:0010D314 sbl1_partition_id DCD 0xDEA0BA2C        ; SBL1 partition GUID  
+> ROM:0010D318                 DCW 0xCBDD  
+> ROM:0010D31A                 DCW 0x4805  
+> ROM:0010D31C byte_10D31C     DCB 0xB4                ; DATA XREF: find_sbl1_partition+AC↑r  
+> ROM:0010D31D                 DCB 0xF9  
+> ROM:0010D31E                 DCB 0xF4  
+> ROM:0010D31F                 DCB 0x28 ; (  
+> ROM:0010D320 unk_10D320      DCB 0x25 ; %            ; DATA XREF: find_sbl1_partition+B4↑r  
+> ROM:0010D321                 DCB 0x1C  
+> ROM:0010D322                 DCB 0x3E    
+> ROM:0010D323                 DCB 0x98  
+
+sbl1's GUID is located at 0x10D314(the names are of course my additions).Set another good GUID for sbl1bak and patching this out, then it should work.(I need to apply common patches like distouching MMU and pagetables according to alephsecurity's research, of course.)
+
 ## Update 20/03/25 #3
 Okay...after finding out why programmer reboots (in our previous case), I did a workaround in my LK.Then it doesn't reboot anymore, but then stuck as well :( What's worse, it seems to broke PMIC configs so there's something wrong there and my phone can't poweroff anymore! I've had similar issues when porting LK, but I haven't found the root cause and solution.The only way to exit this state is completely by chance, or drain the battery to let it reach cut off voltage, kek.
 However, another idea came up to my mind, why not use Alpehsecurity's way, re-run the bootrom ? At first I didn't choose it because I tried to branch to 0x100000 but result in a stuck (the MMC issue).But since I already had a working LK, I can probably uninitialize the MMC properly to a ready state for bootrom.So I had a try.First, I tried to jump to 0x100000 directly from LK. The phone stuck, which is expected as bootrom failed to init MMC.Then I called target_uninit() and platform_uninit() before branching to 0x100000.Then it worked! Phone warm-booted successfully up to stock LK, although it seems stuck at there.Nevermind, as the bootrom is the same, now I can just reuse alpehsecurity's work, but in my LK, of course.
