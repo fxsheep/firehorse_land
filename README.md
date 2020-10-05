@@ -7,14 +7,18 @@ and use backup partitons (*bak) on the EMMC to store tampered firmwares and boot
 making it a Semi-Tethered jailbreak.
 
 ## Current status:
+Supports booting tethered with SBL1 patched on the fly.
+Supports booting tethered with SBL1 patched on the fly, from SDCard.
 Supports booting from EDL to a custom LK(little kernel, aboot),[source](https://github.com/fxsheep/lk4edl).
 Nothing much is working at this point, as RPM firmware isn't loaded(yet).
-### Working:
+### Working (lk4edl):
 USB
-### Not working:
+### Not working (lk4edl):
 Vibrator, Display, etc.
+### Not working (tethered boot):
+On board EMMC (unresponsive in Android kernel)
 
-## Usage(use at your own risk)
+## Usage_lk4edl (use at your own risk)
 1. Download [firehorse research framework](https://github.com/alephsecurity/firehorse)
 2. Download this repo and place all files under firehorse\host.(firehorse is the repo you downloaded in 1)
 3. Setup firehorse framework properly ,you just need to install QPST, Python2.7 and configure constants.py.
@@ -24,6 +28,11 @@ Vibrator, Display, etc.
 7. Your device will enter EDL mode and the custom LK will be loaded and executed in less than a minute.
 8. You'll see the 9008 serial port disappears and a Fastboot device shows up.
 9. Use fastboot oem lk_log to see LK boot messages.
+
+## Usage_SecureBoot_Bypass (use at your own risk)
+~Clone EMMC contents to a good enough SDCard, insert the card and boot with exploit_mota_boot_release.cmd.
+(To be continued)
+(Note that all offsets are hardcoded for firmware from MIUI China 9.3.28)
 
 ## Notes
 Based on the research done by alephsecurity,it's not difficult to control the PC with poke function,by changing the LR
@@ -45,6 +54,11 @@ so that loading it with poke won't take too much time.
 
 As for the custom LK,since it's running in pure AArch32 and there is no other stuffs like Secure Monitor etc, SMC will fail.
 Commenting related codes out, and it should go far enough to fastboot mode. 
+
+## Update 20/10/06
+A few days ago I suddenly realized that some parts of the PBL code is still patchable with my broken remap.So I insented a patch to SBL1  after PBL has authenticated it, and surprise! It worked. This allowed me enough to boot to fastboot.
+(To be continued)
+
 
 ## Update 20/03/26 #2
 Today is a great day.After a lot of attempts, now I'm finally able to do:  
