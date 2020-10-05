@@ -7,8 +7,8 @@ and use backup partitons (*bak) on the EMMC to store tampered firmwares and boot
 making it a Semi-Tethered jailbreak.
 
 ## Current status:
-Supports booting tethered with SBL1 patched on the fly.
-Supports booting tethered with SBL1 patched on the fly, from SDCard.
+Supports booting tethered with SBL1 patched on the fly.  
+Supports booting tethered with SBL1 patched on the fly, from SDCard.  
 Supports booting from EDL to a custom LK(little kernel, aboot),[source](https://github.com/fxsheep/lk4edl).
 Nothing much is working at this point, as RPM firmware isn't loaded(yet).
 ### Working (lk4edl):
@@ -16,7 +16,7 @@ USB
 ### Not working (lk4edl):
 Vibrator, Display, etc.
 ### Not working (tethered boot):
-On board EMMC (unresponsive in Android kernel)
+On board EMMC (unresponsive in Android kernel)  
 
 ## Usage_lk4edl (use at your own risk)
 1. Download [firehorse research framework](https://github.com/alephsecurity/firehorse)
