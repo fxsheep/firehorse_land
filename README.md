@@ -9,7 +9,7 @@ making it a Semi-Tethered jailbreak.
 ## Current status:
 Supports booting tethered with SBL1 patched on the fly.  
 Supports booting tethered with SBL1 patched on the fly, from SDCard.  
-Supports booting from EDL to a custom LK(little kernel, aboot),[source](https://github.com/fxsheep/lk4edl).
+Supports booting from EDL to a custom LK(little kernel, aboot),[source here (you can build lk.bin yourself)](https://github.com/fxsheep/lk4edl).
 Nothing much is working at this point, as RPM firmware isn't loaded(yet).
 ### Working (lk4edl):
 USB
@@ -31,8 +31,8 @@ On board EMMC (unresponsive in Android kernel)
 
 ## Usage_SecureBoot_Bypass (use at your own risk)
 Clone EMMC contents to a good enough SDCard, insert the card and boot with exploit_mota_boot_release.cmd.  
-(To be continued)  
-(Note that all offsets are hardcoded for firmware from MIUI China 9.3.28)  
+This will perform a temporary 'patch' to the PBL and trick it into thinking that secureboot fuses aren't blown, which will allow it to boot an arbitrary-signed SBL1 or EDL loader.  
+As EMMC will be unresponsive and unusable till next reboot, there's also a patch to let PBL to boot from SDC2(sdcard) first.
 
 ## Notes
 Based on the research done by alephsecurity,it's not difficult to control the PC with poke function,by changing the LR
