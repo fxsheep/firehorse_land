@@ -32,7 +32,8 @@ On board EMMC (unresponsive in Android kernel)
 ## Usage_SecureBoot_Bypass (use at your own risk)
 Clone EMMC contents to a good enough SDCard, insert the card and boot with exploit_mota_boot_release.cmd.  
 This will perform a temporary 'patch' to the PBL and trick it into thinking that secureboot fuses aren't blown, which will allow it to boot an arbitrary-signed SBL1 or EDL loader.  
-As EMMC will be unresponsive and unusable till next reboot, there's also a patch to let PBL to boot from SDC2(sdcard) first.
+As EMMC will be unresponsive and unusable till next reboot, there's also a patch to let PBL to boot from SDC2(sdcard) first.  
+Refer to Patch.md for details.  
 
 ## Notes
 Based on the research done by alephsecurity,it's not difficult to control the PC with poke function,by changing the LR
