@@ -15,8 +15,8 @@ RPM firmware is also patchable if you want to.
 2.Find and patch the TZ:
 > bspatch tz.mbn tz_patched.mbn tz_9.3.28.patch  
 
-3.Download http://bigota.d.miui.com/6.6.16/miui_HM3S_6.6.16_eb411d8524_6.0.zip and extract firmware-update
-4.Find and patch the SBL1:
+3.Download http://bigota.d.miui.com/6.6.16/miui_HM3S_6.6.16_eb411d8524_6.0.zip and extract firmware-update  
+4.Find and patch the SBL1:  
 > bspatch sbl1.mbn sbl1_patched.mbn sbl1_6.6.16.patch  
 
 5.Flash 9.3.28 firmware you downloaded before to the device.  
