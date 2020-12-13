@@ -24,16 +24,16 @@ RPM firmware is also patchable if you want to.
 (Below is only an example, adjust yourself)
 > land:/ # dd if=/dev/block/mmcblk0 of=/dev/block/mmcblk1 bs=1024M count=6
 
-7.Boot into TWRP, adb push emmc_appsboot.mbn(lk1st in this repo), tz_patched.mbn and sbl1_patched.mbn to root directory.
+7.Boot into TWRP, adb push emmc_appsboot.mbn(lk1st in this repo), tz_patched.mbn and sbl1_patched.mbn to root directory.  
 8.adb shell and flash patched boot chains:  
 > land:/ # cat sbl1_patched.mbn >/dev/block/platform/soc/7864900.sdhci/by-name/sbl1  
 > land:/ # cat tz_patched.mbn >/dev/block/platform/soc/7864900.sdhci/by-name/tz  
 > land:/ # cat emmc_appsboot.mbn >/dev/block/platform/soc/7864900.sdhci/by-name/aboot  
 
 9.Prepare a ROM and a TWRP image folloing guides below.  
-10.Boot tethered with cmd scripts, (documented in README), while holding volume down till it vibrates and fastboot USB enumerated.  
-11.Now only SDCard will be visible, as mmcblk0. FORMAT /data with new TWRP, then flash ROM prepared.
-12.Boot tethered again but let aboot boot normally, you'll eventually be greeted with Android bootanim and UI
+10.Boot tethered with cmd scripts, (documented in README), while holding volume down till it vibrates and fastboot USB enumerated.    
+11.Now only SDCard will be visible, as mmcblk0. FORMAT /data with new TWRP, then flash ROM prepared.  
+12.Boot tethered again but let aboot boot normally, you'll eventually be greeted with Android bootanim and UI  
 13.Enjoy SoC-wide freedom.  
 
 ## Note  
