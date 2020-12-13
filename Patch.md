@@ -13,11 +13,11 @@ RPM firmware is also patchable if you want to.
 ## Procedure  
 1.Download https://bigota.d.miui.com/9.3.28/miui_HM3S_9.3.28_4a8a385746_6.0.zip and extract firmware-update  
 2.Find and patch the TZ:
-> bsdiff tz.mbn tz_patched.mbn tz_9.3.28.patch  
+> bspatch tz.mbn tz_patched.mbn tz_9.3.28.patch  
 
 3.Download http://bigota.d.miui.com/6.6.16/miui_HM3S_6.6.16_eb411d8524_6.0.zip and extract firmware-update
 4.Find and patch the SBL1:
-> bsdiff sbl1.mbn sbl1_patched.mbn sbl1_6.6.16.patch  
+> bspatch sbl1.mbn sbl1_patched.mbn sbl1_6.6.16.patch  
 
 5.Flash 9.3.28 firmware you downloaded before to the device.  
 6.Clone phone EMMC contents to SDCard except userdata partition. ALL DATA ON THE CARD WILL BE DESTROYED.  
