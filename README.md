@@ -30,9 +30,9 @@ On board EMMC (unresponsive in Android kernel)
 9. Use fastboot oem lk_log to see LK boot messages.
 
 ## Usage_SecureBoot_Bypass (use at your own risk)
-~Clone EMMC contents to a good enough SDCard, insert the card and boot with exploit_mota_boot_release.cmd.
-(To be continued)
-(Note that all offsets are hardcoded for firmware from MIUI China 9.3.28)
+Clone EMMC contents to a good enough SDCard, insert the card and boot with exploit_mota_boot_release.cmd.  
+(To be continued)  
+(Note that all offsets are hardcoded for firmware from MIUI China 9.3.28)  
 
 ## Notes
 Based on the research done by alephsecurity,it's not difficult to control the PC with poke function,by changing the LR
