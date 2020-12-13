@@ -7,10 +7,10 @@ and use backup partitons (*bak) on the EMMC to store tampered firmwares and boot
 making it a Semi-Tethered jailbreak.
 
 ## Current status:
-Supports booting tethered with SBL1 patched on the fly.  
-Supports booting tethered with SBL1 patched on the fly, from SDCard.  
-Supports booting from EDL to a custom LK(little kernel, aboot),[source here (you can build lk.bin yourself)](https://github.com/fxsheep/lk4edl).
-Nothing much is working at this point, as RPM firmware isn't loaded(yet).
+Supports booting from EDL to a custom LK(little kernel, aboot),[source here (you can build lk.bin yourself)](https://github.com/fxsheep/lk4edl).  
+Supports booting tethered with SBL1 patched on the fly via lk4edl.  
+Supports booting tethered with arbitrary SBL1 via lk4edl, from SDCard.
+
 ### Working (lk4edl):
 USB
 ### Not working (lk4edl):
