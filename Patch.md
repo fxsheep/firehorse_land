@@ -64,6 +64,7 @@ This patch does the following:
 ## ADSP patching
 Assuming you have applied TZ patch, to patch out ADSP userspace applications signature checks, enable /dev/mem, use the following:  
 > busybox devmem 0x8BB44668 32 0x5800C03C  
+
 This offset will work on 9.3.28, and probably all versions. 
 
 ## lk1st
@@ -75,5 +76,5 @@ You can download and compile yourself from https://github.com/fxsheep/lk1st_land
 
 
 ## Hint
-Symbols of ADSP and modem firmwares can be acquired from Xiaomi factory firmwares, and it seems that the factory build of these Q6 FWs are the same as production builds.  
+Symbols of ADSP and modem firmwares can be acquired from Xiaomi factory firmwares, and it seems that the factory build of ADSP Q6 FWs are the same as production builds.  
 keyword: SW_S88537BA1_V036_M20_MP_XM-MIUI-FACTORY20
