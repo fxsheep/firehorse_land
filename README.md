@@ -7,7 +7,7 @@ and use backup partitons (*bak) on the EMMC to store tampered firmwares and boot
 making it a Semi-Tethered jailbreak.
 
 ## Current status:
-Supports booting from EDL to a custom LK(little kernel, aboot),[source here (you can build lk.bin yourself)](https://github.com/fxsheep/lk4edl).  
+Supports booting from EDL to a custom LK(little kernel, aboot).[source](https://github.com/fxsheep/lk4edl)  
 Supports booting tethered with SBL1 patched on the fly via lk4edl.  
 Supports booting tethered with arbitrary SBL1 via lk4edl, from SDCard.
 
@@ -33,7 +33,7 @@ On board EMMC (unresponsive in Android kernel)
 Clone EMMC contents to a good enough SDCard, insert the card and boot with exploit_mota_boot_release.cmd.  
 This will perform a temporary 'patch' to the PBL and trick it into thinking that secureboot fuses aren't blown, which will allow it to boot an arbitrary-signed SBL1 or EDL loader.  
 As EMMC will be unresponsive and unusable till next reboot, there's also a patch to let PBL to boot from SDC2(sdcard) first.  
-Refer to Patch.md for details.  
+Refer to [Patch.md](https://github.com/fxsheep/firehorse_land/blob/master/Patch.md) for details.  
 
 ## Notes
 Based on the research done by alephsecurity,it's not difficult to control the PC with poke function,by changing the LR
