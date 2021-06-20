@@ -19,18 +19,15 @@ Vibrator, Display, etc.
 On board EMMC (unresponsive in Android kernel)  
 
 ## Usage_lk4edl (use at your own risk)
-1. Download [firehorse research framework](https://github.com/alephsecurity/firehorse)
-2. Download this repo and place all files under firehorse\host.(firehorse is the repo you downloaded in 1)
-3. Setup firehorse framework properly ,you just need to install QPST, Python2.7 and configure constants.py.
-4. Edit firehorse\host\exploit.cmd , modify port variable according to your EDL port number.
-5. Put your Redmi 3S in normal mode, check if adb is working.
-6. Run exploit.cmd , wait for the exploit to run.
-7. Your device will enter EDL mode and the custom LK will be loaded and executed in less than a minute.
-8. You'll see the 9008 serial port disappears and a Fastboot device shows up.
-9. Use fastboot oem lk_log to see LK boot messages.
+1. Edit exploit.cmd , modify port variable according to your EDL port number.
+2. Put your Redmi 3S in normal mode, check if adb is working.
+3. Run exploit.cmd , wait for the exploit to run.
+4. Your device will enter EDL mode and the custom LK will be loaded and executed in less than a minute.
+5. You'll see the 9008 serial port disappears and a Fastboot device shows up.
+6. Use fastboot oem lk_log to see LK boot messages.
 
 ## Usage_SecureBoot_Bypass (use at your own risk)
-Clone EMMC contents to a good enough SDCard, insert the card and boot with exploit_mota_boot_release.cmd.  
+Chnage the port number in exploit_mota_boot_release.cmd, clone EMMC contents to a good enough SDCard, insert the card and boot with exploit_mota_boot_release.cmd.  
 This will perform a temporary 'patch' to the PBL and trick it into thinking that secureboot fuses aren't blown, which will allow it to boot an arbitrary-signed SBL1 or EDL loader.  
 As EMMC will be unresponsive and unusable till next reboot, there's also a patch to let PBL to boot from SDC2(sdcard) first.  
 Refer to [Patch.md](https://github.com/fxsheep/firehorse_land/blob/master/Patch.md) for details.  
