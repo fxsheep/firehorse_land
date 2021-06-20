@@ -76,6 +76,7 @@ You can download and compile yourself from https://github.com/fxsheep/lk1st_land
 
 ## KVM/EL2
 Another TZ patch (tz_9.3.28_el2.patch) is provided, which boots AArch64 HLOS in EL2 in addition to existing TZ patches.  
+AArch32 EL2 is not patched, because aboot does not support EL2 transistion to kernel, or even running from EL2.  
 
 ## Hint
 Symbols of ADSP and modem firmwares can be acquired from Xiaomi factory firmwares, and it seems that the factory build of ADSP Q6 FWs are the same as production builds.  
