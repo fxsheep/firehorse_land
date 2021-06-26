@@ -80,6 +80,7 @@ AArch32 EL2 is not patched, because aboot does not support EL2 transistion to ke
 
 ## Android (system/recovery) boot from SDCard
 > sed -i "s/7824900.sdhci/7864900.sdhci/g" boot.img  
+
 Also delete /vendor/lib64/hw/keystore.msm8937.so /vendor/lib/hw/keystore.msm8937.so  
 
 ## Hint
