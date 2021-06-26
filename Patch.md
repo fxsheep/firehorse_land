@@ -78,6 +78,10 @@ You can download and compile yourself from https://github.com/fxsheep/lk1st_land
 Another TZ patch (tz_9.3.28_el2.patch) is provided, which boots AArch64 HLOS in EL2 in addition to existing TZ patches.  
 AArch32 EL2 is not patched, because aboot does not support EL2 transistion to kernel, or even running from EL2.  
 
+## Android (system/recovery) boot from SDCard
+> sed -i "s/7824900.sdhci/7864900.sdhci/g" boot.img  
+Also delete /vendor/lib64/hw/keystore.msm8937.so /vendor/lib/hw/keystore.msm8937.so  
+
 ## Hint
 Symbols of ADSP and modem firmwares can be acquired from Xiaomi factory firmwares, and it seems that the factory build of ADSP Q6 FWs are the same as production builds.  
 keyword: SW_S88537BA1_V036_M20_MP_XM-MIUI-FACTORY20
